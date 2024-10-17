@@ -58,21 +58,19 @@ if prompt := st.chat_input("Please enter the dish you want to make"):
 
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
-
+    foundrecipes = False
     chatlog = ""
 
-    with st.chat_message("assistant"):
+    
         
-
+    with st.chat_message("assistant"):
         spoonacular_recipes = fetch_spoonacular_recipes(ingredient_query)
         if spoonacular_recipes.get("results"):
             spoonacularresponse = ""
+            foundrecipes = True
             for recipe in spoonacular_recipes["results"]:
-                
-
                 # Construct the URL for the recipe
                 recipe_url = f"https://spoonacular.com/recipes/{'-'.join(recipe['title'].lower().split())}-{recipe['id']}"
-
                 # Format the description with recipe information
                 description = f"""
                 ## {recipe['title']}
@@ -90,9 +88,8 @@ if prompt := st.chat_input("Please enter the dish you want to make"):
         tasty_recipes = fetch_tasty_recipes(ingredient_query)
         if tasty_recipes.get("results"):
             tastyresponse = ""
+            foundrecipes = True
             for recipe in tasty_recipes["results"]:
-                
-
                 description = f"""
                 ## {recipe['name']}
                 **Description**: {recipe.get('description', 'No description available')}  
@@ -102,14 +99,19 @@ if prompt := st.chat_input("Please enter the dish you want to make"):
                 st.markdown(description)
                 tastyresponse += description
             chatlog += tastyresponse
-        
-        
-
-    st.session_state.messages.append({"role": "assistant", "content": chatlog})
             
+            
+        if not foundrecipes:
+                no_results_message = "Sorry, I couldn't find any recipes. Please enter another dish."
+                no_results_message = no_results_message.strip()
+                st.markdown(no_results_message)
+                chatlog += no_results_message
 
+        st.session_state.messages.append({"role": "assistant", "content": chatlog})
                 
-        
-        
- 
+
+                    
+            
+            
     
+        

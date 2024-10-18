@@ -25,10 +25,14 @@ def fetch_spoonacular_recipes(query):
 def fetch_tasty_recipes(query):
     api_url = "https://tasty.p.rapidapi.com/recipes/list"
     headers = {
-        "X-RapidAPI-Key": TASTY_API_KEY,
-        "X-RapidAPI-Host": "tasty.p.rapidapi.com"
+        "X-RapidAPI-Host": "tasty.p.rapidapi.com",
+        "X-RapidAPI-Key": TASTY_API_KEY
     }
-    params = {"from": 0, "size": 5, "tags": query}  # Use the query directly as tags
+    params = {
+        "q": query,
+        "from": 0,
+        "size": 10
+    }
     response = requests.get(api_url, headers=headers, params=params)
     return response.json()
 

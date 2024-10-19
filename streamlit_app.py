@@ -1,8 +1,10 @@
 import requests
 import streamlit as st
 import spacy
+from spacy.cli import download
 
 # Load the spaCy model
+download("en_core_web_sm")
 nlp = spacy.load('en_core_web_sm')
 
 # API Keys from secrets.toml
@@ -31,7 +33,7 @@ def fetch_tasty_recipes(query):
     params = {
         "q": query,
         "from": 0,
-        "size": 10
+        "size": 5
     }
     response = requests.get(api_url, headers=headers, params=params)
     return response.json()

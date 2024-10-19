@@ -1,5 +1,4 @@
-spacy==3.6.0
-thinc==8.1.8
-numpy==1.23.5
+spacy
+streamlit
 requests
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0.tar.gz

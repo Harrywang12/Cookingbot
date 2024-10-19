@@ -3,4 +3,4 @@ thinc
 numpy
 streamlit
 requests
-en-core-web-sm==3.8.0
+en-core-web-sm

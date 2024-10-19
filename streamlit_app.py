@@ -1,9 +1,10 @@
 import requests
 import streamlit as st
 import spacy
-import os
+from spacy.cli import download
 
-os.system('python -m spacy download en_core_web_sm')
+# Load the spaCy model
+download("en_core_web_sm")
 nlp = spacy.load('en_core_web_sm')
 
 # API Keys from secrets.toml
